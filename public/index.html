@@ -5,21 +5,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" href="style.css">
   <title>Chat app</title>
 </head>
 <body>
 
-  <select id="roomList"></select>
-  <input type="text" id="u" placeholder="Username">
-  <button id="joinButton" type="submit">Join Room</button>
+  <section id="login">
+    <select id="roomList"></select>
 
-  <form>
-    <input type="text" id="m" placeholder="Message">
+    <form id="uForm">
+      <input type="text" id="u" placeholder="Username">
+      <button id="joinButton" type="submit">Join Room</button>
+    </form>
+  </section>
 
-    <button type="submit">Send</button>
-  </form>
+  <section id="chat">
+    <form id="mForm">
+      <ul id="messages"></ul>
 
-  <ul id="messages"></ul>
+      <input type="text" id="m" placeholder="Message">
+      <button type="submit">Send</button>
+    </form>
+  </section>
 
   <script defer src="chat.js"></script>
 </body>

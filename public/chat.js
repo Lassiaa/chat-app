@@ -37,6 +37,7 @@ uForm.addEventListener("submit", (event) => {
     socket.emit("joinRoom", { roomName: selectedRoom, nickname });
     document.getElementById("login").classList = "hidden";
     document.getElementById("chat").classList = "";
+    document.getElementById("logged").innerHTML = nickname;
     inp.focus();
   }
 });
@@ -44,6 +45,7 @@ uForm.addEventListener("submit", (event) => {
 socket.on("chat message", (msg) => {
   const item = document.createElement("li");
   item.innerHTML = msg;
+  item.classList = "m-1"
   document.getElementById("messages").appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);
 });

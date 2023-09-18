@@ -9,6 +9,8 @@ app.use(express.static("public"));
 
 const users = [];
 const rooms = ["room1", "room2", "room3"];
+const history = []
+const client = []
 
 const getUserList = () => {
   let userList = "";
@@ -65,6 +67,29 @@ io.on("connection", (socket) => {
       });
     }
   });
+
+  io.sockets.on("connection", (socket) => {
+    client.push({id : socket.client.id})
+    console.log(client)
+
+    let getClientID = client.find(e => (e.id === socket.client.id))
+    console.log("the Client", getClientID)
+    if(getClientID) {
+      socket.emit("msg",history);
+    }
+
+    socket.emit("Start_Chat");
+    socket.on("Register_Name", (data) => {
+      console.log(data)
+      io.sockets.emit("r_name","<strong>"+data+"</strong> Has Joined The Chat");
+
+      socket.on("Send_msg", (data) => {
+        history.push(data)
+        console.log(history)
+        io.sockets.emit("msg",data);
+      })
+    })
+  })
 
   socket.on("disconnect", () => {
     console.log(
